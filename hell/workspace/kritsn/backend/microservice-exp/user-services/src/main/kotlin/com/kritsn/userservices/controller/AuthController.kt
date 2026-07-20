@@ -1,9 +1,8 @@
 package com.kritsn.userservices.controller
 
 import com.kritsn.lib.base.BaseResponse
-import com.kritsn.lib.base.Response
 import com.kritsn.lib.base.buildSuccessResponse
-import com.kritsn.userservices.dto.ReqUser
+import com.kritsn.userservices.dto.request.CreateUserRequest
 import com.kritsn.userservices.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,25 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v1/user-auth")
 class AuthController {
-
-    @GetMapping("/test")
-    fun test(): String {
-        return "Login Controller Test Success"
-    }
 
     @Autowired
     lateinit var authService: AuthService
 
-    @GetMapping("/dummy")
-    private fun dummyApi(): BaseResponse {
+    @GetMapping("/test")
+    fun test(): BaseResponse {
         return buildSuccessResponse()
     }
 
     @PostMapping("/create", consumes = ["application/json"], produces = ["application/json"])
-    private fun createNewToken(@RequestBody reqUser: ReqUser): BaseResponse {
-        return authService.handleGenerateToken(reqUser.mobileNumber)
+    private fun createNewToken(@RequestBody userDto: CreateUserRequest): BaseResponse {
+        return authService.handleGenerateToken(userDto.mobileNumber)
     }
 
     @GetMapping("/refresh")

@@ -2,6 +2,7 @@ package com.kritsn.orderservice.cotroller
 
 import com.kritsn.lib.base.BaseResponse
 import com.kritsn.lib.base.buildSuccessResponse
+import com.kritsn.lib.util.toJsonString
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -17,6 +18,8 @@ class OrderController {
 
     @RequestMapping("/test")
     fun test(): BaseResponse {
-        return buildSuccessResponse("Order Service dummy")
+        val response = buildSuccessResponse("Order Service dummy")
+        println("TEST:  OrderController -> /api/v1/order/test : ${response.toJsonString()}")
+        return response;
     }
 }

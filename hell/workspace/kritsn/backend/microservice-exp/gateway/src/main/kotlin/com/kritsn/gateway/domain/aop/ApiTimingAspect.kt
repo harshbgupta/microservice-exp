@@ -1,4 +1,4 @@
-package com.kritsn.userservices.aop
+package com.kritsn.gateway.domain.aop
 
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.*
 import org.springframework.context.annotation.EnableAspectJAutoProxy
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes

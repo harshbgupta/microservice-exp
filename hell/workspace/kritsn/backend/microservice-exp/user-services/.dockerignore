@@ -1,0 +1,13 @@
+# .dockerignore
+.git
+.gitignore
+.gradle
+#.mvn
+# exclude target as we need copy the jar from there
+#target
+build
+out
+*.iml
+*.log
+.DS_Store
+node_modules

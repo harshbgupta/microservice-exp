@@ -1,16 +1,17 @@
-package com.kritsn.gateway.exception
-
+package com.kritsn.gateway.domain.exception
 
 import com.kritsn.lib.base.buildErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.access.AuthorizationServiceException
+import org.springframework.security.authentication.InsufficientAuthenticationException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.NoHandlerFoundException
 import org.springframework.web.servlet.resource.NoResourceFoundException
 import java.time.format.DateTimeParseException
-
 
 /**
  * Copyright © 2025 Kritsn LLP. All rights reserved.
@@ -64,8 +65,8 @@ class GlobalExceptionHandler {
         return ResponseEntity(response, HttpStatus.BAD_REQUEST)
     }
 
-    @ExceptionHandler(org.springframework.security.access.AuthorizationServiceException::class)
-    fun handleAuthorizationServiceException(ex: org.springframework.security.access.AuthorizationServiceException): ResponseEntity<Any> {
+    @ExceptionHandler(AuthorizationServiceException::class)
+    fun handleAuthorizationServiceException(ex: AuthorizationServiceException): ResponseEntity<Any> {
         ex.printStackTrace()
         val response = buildErrorResponse(
             message = "Authorization error => ${ex::class.java.simpleName}: ${ex.message}",
@@ -74,8 +75,8 @@ class GlobalExceptionHandler {
         return ResponseEntity(response, HttpStatus.FORBIDDEN)
     }
 
-    @ExceptionHandler(org.springframework.security.access.AccessDeniedException::class)
-    fun handleAccessDeniedException(ex: org.springframework.security.access.AccessDeniedException): ResponseEntity<Any> {
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDeniedException(ex: AccessDeniedException): ResponseEntity<Any> {
         ex.printStackTrace()
         val response = buildErrorResponse(
             message = "Access denied => ${ex::class.java.simpleName}: ${ex.message}",
@@ -94,6 +95,17 @@ class GlobalExceptionHandler {
         )
         return ResponseEntity(response, HttpStatus.NOT_FOUND)
     }
+
+    @ExceptionHandler(InsufficientAuthenticationException::class)
+    fun handleInsufficientAuthenticationException(ex: InsufficientAuthenticationException): ResponseEntity<Any> {
+        ex.printStackTrace()
+        val response = buildErrorResponse(
+            message = "Authentication is required => ${ex::class.java.simpleName}: ${ex.message}",
+            httpStatus = HttpStatus.FORBIDDEN,
+        )
+        return ResponseEntity(response, HttpStatus.FORBIDDEN)
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // uncomment following the code, to debug any UnHandledException, the exception will be caught here, once You

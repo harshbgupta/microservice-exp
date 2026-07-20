@@ -1,5 +1,6 @@
-package com.kritsn.gateway.filter
+package com.kritsn.gateway.domain.exception
 
+import com.kritsn.gateway.infrastructure.util.sendErrorResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
@@ -17,16 +18,11 @@ class JwtEntryPoint : AuthenticationEntryPoint {
         response: HttpServletResponse,
         authException: AuthenticationException
     ) {
+        authException.printStackTrace()
         sendErrorResponse(
             response,
             HttpStatus.UNAUTHORIZED,
             "Auth Entry Error => ${authException::class.java.simpleName}: ${authException.message}"
         )
     }
-}
-
-fun sendErrorResponse(response: HttpServletResponse, status: HttpStatus, message: String) {
-    response.status = status.value()
-    response.contentType = "application/json"
-    response.writer.write("""{"success":false,"code": ${status.value()},"message": "$message","timestamp":${System.currentTimeMillis()}}""")
 }

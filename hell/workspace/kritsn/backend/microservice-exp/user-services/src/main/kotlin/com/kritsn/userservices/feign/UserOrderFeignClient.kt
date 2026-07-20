@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.GetMapping
 interface UserOrderFeignClient {
 
     @GetMapping("/api/v1/order/test")
-    fun getOrderTest(): BaseResponse
+    fun getOrderTest(): String
 }
