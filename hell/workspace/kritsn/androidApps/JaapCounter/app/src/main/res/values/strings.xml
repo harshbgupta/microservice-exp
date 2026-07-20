@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JaapCounter</string>
+    <string name="jaap_counter">Jaap Counter</string>
+    <string name="settings">Setting\n</string>
+</resources>
